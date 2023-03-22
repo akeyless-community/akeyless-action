@@ -1,6 +1,6 @@
-# AKeyless GitHub Action
+# Akeyless GitHub Action
 
-This action will login to AKeyless using JWT or IAM authentication and then fetch secrets and/or provision AWS access via a dynamic producer.
+This action will login to Akeyless using JWT or IAM authentication and then fetch secrets and/or provision AWS access via a dynamic producer.
 
 | Workflow | Status |
 |----------|--------|
@@ -20,7 +20,7 @@ This action will login to AKeyless using JWT or IAM authentication and then fetc
 | **export-secrets-to-environment** | No | `boolean` | Default: `true`. True/False to denote if static/dynamic secrets should be exported as action outputs. |
 | **parse-dynamic-secrets** | No | `boolean` | Default: `false`. True/False to denote if dynamic secrets will be broken up into individual outputs/env vars, see the [parsed dynamic secrets demos](#parsed-dynamic-secrets). |
 
-> It is important that you follow the instructions in the [AKeyless Setup](#akeyless-setup) and [Job Permissions Requirement](#job-permissions-requirement) sections **before** using this Action.
+> It is important that you follow the instructions in the [Akeyless Setup](#akeyless-setup) and [Job Permissions Requirement](#job-permissions-requirement) sections **before** using this Action.
 
 ### Outputs
 
@@ -53,7 +53,7 @@ See the [parsed dynamic secrets](#parsed-dynamic-secrets) example for a better e
 
 ## Table of Contents
 
-- [AKeyless GitHub Action](#akeyless-github-action)
+- [Akeyless GitHub Action](#akeyless-github-action)
     - [Inputs](#inputs)
     - [Outputs](#outputs)
   - [Job Permissions Requirement](#job-permissions-requirement)
@@ -61,7 +61,7 @@ See the [parsed dynamic secrets](#parsed-dynamic-secrets) example for a better e
     - [Live Demos](#live-demos)
     - [Static Secrets Demo](#static-secrets-demo)
     - [Dynamic Secrets](#dynamic-secrets-demos)
-  - [AKeyless Setup](#akeyless-setup)
+  - [Akeyless Setup](#akeyless-setup)
     - [Authentication Methods](#authentication-methods)
     - [Setting up JWT Auth](#setting-up-jwt-auth)
   - [Feature Requests & Issues](#feature-requests--issues)
@@ -70,7 +70,7 @@ See the [parsed dynamic secrets](#parsed-dynamic-secrets) example for a better e
 
 ### Job Permissions Requirement
 
-The default usage relies on using the GitHub JWT to login to AKeyless.  To make this available, you have to configure it in your job workflow:
+The default usage relies on using the GitHub JWT to login to Akeyless.  To make this available, you have to configure it in your job workflow:
 
 ```
 jobs:
@@ -81,13 +81,13 @@ jobs:
       contents: read
     #--------------------------#
 ```
-> If this is not present, the akeyless-action step will fail with the following error `Failed to login to AKeyless: Error: Failed to fetch Github JWT: Error message: Unable to get ACTIONS\_ID\_TOKEN\_REQUEST\_URL env variable`
+> If this is not present, the akeyless-action step will fail with the following error `Failed to login to Akeyless: Error: Failed to fetch Github JWT: Error message: Unable to get ACTIONS\_ID\_TOKEN\_REQUEST\_URL env variable`
 
 ## Examples
 
 ### Live Demos
 
-Although this repository's workflows use placeholder values, it is still a real AKeyless account and real providers. The approaches demonstrated are still valid as-is for real implementations. Use these to your advantage!
+Although this repository's workflows use placeholder values, it is still a real Akeyless account and real providers. The approaches demonstrated are still valid as-is for real implementations. Use these to your advantage!
 
 - **Static Secrets**
   - [Static secret (standard)](https://github.com/LanceMcCarthy/akeyless-action/blob/eef49f96c7ead7c3a4ae596a5e7fa32099778bd6/.github/workflows/ci.yml#L8-L31)
@@ -113,7 +113,7 @@ jobs:
       contents: read
     name: Fetch some static secrets
     steps:
-    - name: Fetch secrets from AKeyless
+    - name: Fetch secrets from Akeyless
       id: fetch-secrets
       uses: LanceMcCarthy/akeyless-action@v3
       with:
@@ -151,7 +151,7 @@ If you want those secrets as separate environment variables, there's one extra s
       contents: read
       
     steps:
-    - name: Fetch dynamic secrets from AKeyless
+    - name: Fetch dynamic secrets from Akeyless
       id: fetch-dynamic-secrets
       uses: LanceMcCarthy/akeyless-action@v3
       with:
@@ -182,7 +182,7 @@ If you set `parse-dynamic-secrets: true`, the job will automatically create a a 
 For example, a SQL server dynamic secret will provide **id**, **user**, **ttl_in_minutes** and **password** values.
 
 ```yaml
-- name: Fetch dynamic secrets from AKeyless (NO PREFIX)
+- name: Fetch dynamic secrets from Akeyless (NO PREFIX)
   id: get-secrets
   uses: LanceMcCarthy/akeyless-action@v3
   with:
@@ -217,7 +217,7 @@ Sometimes you might want to prefix the variable name. This is easily done by set
 For example, using "SQL" for the output path:
 
 ```yaml
-- name: Fetch dynamic secrets from AKeyless ('SQL' prefix)
+- name: Fetch dynamic secrets from Akeyless ('SQL' prefix)
   uses: LanceMcCarthy/akeyless-action@v3
   id: job-name
   with:
@@ -233,24 +233,24 @@ echo ${{ env.SQL_user }}
 echo ${{ steps.job-name.outputs.SQL_user }}
 ```
 
-## AKeyless Setup
+## Akeyless Setup
 
 ### Authentication Methods
 
-This action only supports authenticating to AKeyless via JWT auth (using the GitHub OIDC token) or via IAM Auth (using a role attached to a cloud-hosted GitHub runner).  I don't plan to support additional authentication methods because there isn't much point (with the possible exception of Universal Identity).  After all, any runner can login to AKeyless using OIDC without storing permanent access credentials.  IAM auth is also supported in case you are using a runner hosted in your cloud account and so are already using IAM auth anyway - this will also give your runner access to AKeyless without storing permanent access credentials.
+This action only supports authenticating to Akeyless via JWT auth (using the GitHub OIDC token) or via IAM Auth (using a role attached to a cloud-hosted GitHub runner).  I don't plan to support additional authentication methods because there isn't much point (with the possible exception of Universal Identity).  After all, any runner can login to Akeyless using OIDC without storing permanent access credentials.  IAM auth is also supported in case you are using a runner hosted in your cloud account and so are already using IAM auth anyway - this will also give your runner access to Akeyless without storing permanent access credentials.
 
 ### Setting up JWT Auth
 
-To configure AKeyless and grant your repositories the necessary permissions to execute this action:
+To configure Akeyless and grant your repositories the necessary permissions to execute this action:
 
-1. Create a GitHub JWT Auth method in AKeyless if you don't have one (you can safely share the auth method between repositories)
-    1. In AKeyless go to "Auth Methods" -> "+ New" -> "OAuth 2.0/JWT".
+1. Create a GitHub JWT Auth method in Akeyless if you don't have one (you can safely share the auth method between repositories)
+    1. In Akeyless go to "Auth Methods" -> "+ New" -> "OAuth 2.0/JWT".
     2. Specify a name (e.g. "GitHub JWT Auth") and location of your choice.
     3. For the JWKS Url, specify `https://token.actions.githubusercontent.com/.well-known/jwks`
     4. For the unique identifier use `repository`. See note (1) below for more details.
     5. You **MUST** click "Require Sub Claim on role association".  This will prevent you from attaching this to a role without any additional checks. If you accidentally forgot to set subclaim checks, then any GitHub runner owned by *anyone* would be able to authenticate to AKeyless and access your resources... **that make this a critical checkbox**.  See the [GitHub docs](https://docs.GitHub.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#configuring-the-oidc-trust-with-the-cloud) for more details.
 2. Create an appropriate access role (if you don't already have one)
-    1. In AKeyless go to "Access Roles" -> "+ New"
+    1. In Akeyless go to "Access Roles" -> "+ New"
     2. Give it a name and location, and create it.
     3. Find your new access role and click on it to edit it.
     4. On the right side, under "Secrets & Keys", click the "Add" button to configure read access to any static or dynamic secrets you will fetch from your pipeline.
@@ -263,9 +263,9 @@ To configure AKeyless and grant your repositories the necessary permissions to e
 
 After following these steps, you'll be ready to use JWT Auth from your GitHub runners!
 
-**(1) Note:** The unique identifier is mainly used for auditing/billing purposes, so there isn't one correct answer here.  `repository` is a sensible default but if you are uncertain, talk to AKeyless for more details.
+**(1) Note:** The unique identifier is mainly used for auditing/billing purposes, so there isn't one correct answer here.  `repository` is a sensible default but if you are uncertain, talk to Akeyless for more details.
 
-**(2) Note:** Subclaim checks allow AKeyless to grant access to specific workflows, based on the claims that GitHub provides in the JWT.  Using the example JWT from [the documentation](https://docs.GitHub.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token), you could set a subclaim check in AKeyless (using example below) to limit access to workflows that were triggered from the main branch in the `octo-org/octo-repo` repository.:
+**(2) Note:** Subclaim checks allow Akeyless to grant access to specific workflows, based on the claims that GitHub provides in the JWT.  Using the example JWT from [the documentation](https://docs.GitHub.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token), you could set a subclaim check in Akeyless (using example below) to limit access to workflows that were triggered from the main branch in the `octo-org/octo-repo` repository.:
 
 ```
 repository=octo-org/octo-repo
