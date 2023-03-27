@@ -27,7 +27,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        static-secrets: '{"/DevTools/my-static-secret":"my_static_secret"}'
+        static-secrets: '{"/akeyless-action/ci/my-static-secret":"my_static_secret"}'
 
     - name: Verify Job Outputs
       run: echo "Your output secret is ${{ steps.fetch-secrets.outputs.my_static_secret }}"
@@ -58,7 +58,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/az-sqlsrvsecret":"my_dynamic_secret"}'
+        dynamic-secrets: '{"/akeyless-action/ci/az-sqlsrvsecret":"my_dynamic_secret"}'
 
     - name: Verify Job Outputs using jq
       run: |
@@ -114,7 +114,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/az-sqlsrvsecret":""}' #no prefix, all output fields are dynamically parsed from source
+        dynamic-secrets: '{"/akeyless-action/ci/az-sqlsrvsecret":""}' #no prefix, all output fields are dynamically parsed from source
         parse-dynamic-secrets: true
 
     - name: Verify Job Outputs (to known field names, pre-parsed)
@@ -149,7 +149,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/az-sqlsrvsecret":"SQL"}' #applies "SQL_" prefix to dynamically parsed output names
+        dynamic-secrets: '{"/akeyless-action/ci/az-sqlsrvsecret":"SQL"}' #applies "SQL_" prefix to dynamically parsed output names
         parse-dynamic-secrets: true
 
     - name: Verify Job Outputs (to known field names, pre-parsed with prefix)
@@ -188,7 +188,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/github-secrets":"github_dynamic_secret"}'
+        dynamic-secrets: '{"/akeyless-action/ci/github-secrets":"github_dynamic_secret"}'
 
     - name: Verify Job Outputs using jq
       run: |
@@ -239,7 +239,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/github-secrets":""}' #no prefix, all output fields are dynamically parsed from source
+        dynamic-secrets: '{"/akeyless-action/ci/github-secrets":""}' #no prefix, all output fields are dynamically parsed from source
         parse-dynamic-secrets: true
 
     - name: Verify Job Outputs (to known field names, pre-parsed)
@@ -272,7 +272,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/github-secrets":"GH"}' #applies "GH_" prefix to dynamically parsed output names
+        dynamic-secrets: '{"/akeyless-action/ci/github-secrets":"GH"}' #applies "GH_" prefix to dynamically parsed output names
         parse-dynamic-secrets: true
 
     - name: Verify Job Outputs (to known field names, pre-parsed with prefix)
@@ -298,7 +298,7 @@ jobs:
   #     uses: ./
   #     with:
   #       access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-  #       dynamic-secrets: '{"/DevTools/my-aws-secrets":""}' # no prefix, all output fields are dynamically parsed from source
+  #       dynamic-secrets: '{"/akeyless-action/ci/my-aws-secrets":""}' # no prefix, all output fields are dynamically parsed from source
   #       parse-dynamic-secrets: true
 
   #   - name: Verify Job Outputs (to known field names, pre-parsed)

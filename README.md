@@ -187,7 +187,7 @@ For example, a SQL server dynamic secret will provide **id**, **user**, **ttl_in
   uses: LanceMcCarthy/akeyless-action@v3
   with:
     access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-    dynamic-secrets: '{"/DevTools/my-sqlsrv-secret":""}' # no prefix, use an empty string for output var
+    dynamic-secrets: '{"/akeyless-action/ci/my-sqlsrv-secret":""}' # no prefix, use an empty string for output var
     parse-dynamic-secrets: true
 ```
 
@@ -222,7 +222,7 @@ For example, using "SQL" for the output path:
   id: job-name
   with:
     access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-    dynamic-secrets: '{"/DevTools/my-sqlsrv-secret":"SQL"}' # uses 'SQL' for prefix
+    dynamic-secrets: '{"/akeyless-action/ci/my-sqlsrv-secret":"SQL"}' # uses 'SQL' for prefix
     parse-dynamic-secrets: true
 ```
 The action will prefix `SQL_` prefix to all the automatically parsed outputs:

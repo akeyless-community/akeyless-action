@@ -28,7 +28,7 @@ jobs:
       uses: ./
       with:
         access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
-        dynamic-secrets: '{"/DevTools/github-secrets":"GH"}' #applies "GH_" prefix to dynamically parsed output names
+        dynamic-secrets: '{"/akeyless-action/ci/github-secrets":"GH"}' #applies "GH_" prefix to dynamically parsed output names
         parse-dynamic-secrets: true
 
     - name: Verify Job Outputs (to known field names, pre-parsed with prefix)
